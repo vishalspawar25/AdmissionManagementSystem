@@ -1,24 +1,73 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*Theme #d10a4d*/
+
+.table th {
+    background-color: #d10a4d;
+    color: #fff;
+    border:none;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.table td, .table th {
+    padding: 8px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+body {
+    background-color:#fbfafa;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+input[type="text"] {
+    background-color: #fff;
+}
+
+.control-label {
+    color: #808080;
+}
+
+h2,.lbl {
+    color: #d10a4d;
+}
+
+.page-header {
+    border-color: #d10a4d;
+}
+
+.btn-magenta {
+    background-color: #d10a4d;
+    color: #fff;
+}
+
+.btn-gray {
+    background-color: #808080;
+    color: #fff;
+}
+
+.btn-magenta:hover {
+    background-color: #ca1040;
+    color: #fff;
+}
+
+.btn-gray:hover {
+    background-color: #695f5f;
+    color: #fff;
+}
+
+btn-magenta:active,
+btn-magenta:active {
+    color: #fff;
+}
+
+.form-group label::after {
+    content: ":";
+}
+
+footer {
+background-color:#d10a4d;
+padding:10px 5px 0 5px;
+height :50px;
+position:fixed;
+bottom:0;
+width:100%;
+color:#fff;
+
+}
+.navbar {border-radius:0;
 }

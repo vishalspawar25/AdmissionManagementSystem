@@ -1,0 +1,265 @@
+﻿@model AdmissionManagementSystem.Models.Student
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<style>
+  
+    #FeeTable td, #FeeTable th {
+        border: 1px solid #dddddd;
+    }
+
+    .step {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #695f5f;
+        border: none;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.5;
+    }
+
+     .step.active {
+       opacity: 1;
+       background-color: #d10a4d;
+    }
+
+        /* Mark the steps that are finished and valid: */
+        .step.finish {
+            background-color: #4CAF50;
+        }
+</style>
+
+@using (Html.BeginForm("Create","Students" ,FormMethod.Post,new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="page-header">
+            <h2>Create Student</h2>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="tab">
+            <h4 class="lbl">Personal Info</h4>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.RollNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.RollNo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RollNo, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.DoB, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class='col-md-3'>
+                    <div class="input-group date" data-date-format="mm-dd-yyyy
+                             ">
+                        @Html.EditorFor(model => model.DoB, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DoB, "", new { @class = "text-danger" })
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.ProfilePic, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @*@Html.EditorFor(model => model.ProfilePic, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProfilePic, "", new { @class = "text-danger" })*@
+                    <input type="file" id="dpUploader" name="dpUploader" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control col-md-3", @rows = "3" })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+        </div>
+        <div class="tab">
+            <h4 class="lbl">Student Info</h4>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Standard, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Standard, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Standard, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.Stream, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Stream, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Stream, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.College, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.College, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.College, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="tab">
+
+            <h4 class="lbl">Course Info</h4>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Courses, htmlAttributes: new { @class = "control-label col-md-2 col-md-offset-1" })
+                <div class="col-md-3">
+
+                    @Html.ListBoxFor(m => m.SelectedCourses, new MultiSelectList(Model.Courses, "Value", "Text", Model.SelectedCourses, Model.SelectedCourses), new { @class = "listbox" })
+                    @Html.ValidationMessageFor(model => model.SelectedCourses, "", new { @class = "text-danger" })
+                </div>
+
+                @Html.LabelFor(model => model.PayingAmt, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.PayingAmt, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PayingAmt, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-6">
+                <table id="FeeTable" class="table table-bordered table-striped"></table>
+            </div>
+            <div class="col-md-6 col-md-offset-2">
+
+                <button type="button" class="btn btn-magenta ">Total Fee: <b><span id="amt">0</span></b></button>
+            </div>
+        </div>
+
+        <div class="row"></div>
+
+        <div class="form-group">
+            <div style="float:right">
+               
+                <input type="submit" value="Create" id="btnCreate" class="btn btn-gray" />
+            </div>
+        </div>
+        <!-- Datepicker as text field -->
+
+    </div>
+}
+<!-- Circles which indicates the steps of the form: -->
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/datepicker.min.css")" />
+<script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
+<link href="@Url.Content("~/Content/bootstrap-multiselect.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/bootstrap-multiselect.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.listbox').multiselect({
+            includeSelectAllOption: true,
+            includeSelectAllOption: false
+        });
+
+        $('.checkbox input[type="checkbox"]').change(function () {
+            var array = []
+            $('.checkbox input[type="checkbox"]:checked').each(function () {
+                array.push(this.value);
+            });
+
+            GetCourseFee(array);
+        });
+        $('.input-group.date').datepicker();
+    });
+
+
+
+    function GetCourseFee(array) {
+
+        $.get("/AdmissionManagementSystem/Students/GetCourseFees",
+            { list: JSON.stringify(array) },
+            function (data) {
+
+                $("#FeeTable").empty();
+                var total = 0;
+                if (data.length > 0) {
+
+                    $("<tr>" +
+                           " <th>Course Name</th>" +
+                            "<th>Duration(in month)</th>" +
+                           " <th>Fee</th></tr>").appendTo("#FeeTable");
+
+
+                    $.each(data, function (key) {
+                        total += data[key].Fee;
+
+                        $("<tr><td>" + data[key].Name + "</td><td>" + data[key].Duration + "</td><td>" + formatCurrency(data[key].Fee) + "</td></tr>").appendTo("#FeeTable")
+                    });
+
+                }
+                $("#amt").text(formatCurrency(total));
+                $("#PayingAmt").val(total);
+            });
+
+    }
+
+    function formatCurrency(val) {
+        return val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
+</script>

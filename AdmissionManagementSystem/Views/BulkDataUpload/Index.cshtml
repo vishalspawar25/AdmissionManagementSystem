@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Create</h2>
+
+@using (Html.BeginForm("Index", "BulkDataUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ <div class="page-header">
+        <h2>Bulk Upload</h2>
+    </div>
+
+
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select upload option</label>
+            <div class="col-md-10" style="padding-top:7px">
+                <input type="radio" name="type" value="Courses" checked>    <span>Courses</span>
+                <input type="radio" name="type" value="Students">   <span>Students</span>
+                <input type="radio" name="type" value="StudentPayments">   <span>Student-Payments</span>
+                <input type="radio" name="type" value="Teachers">   <span>Teachers</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select excel file</label>
+            <div class="col-md-2" style="padding-top:7px">
+                <input type="file" id="file" name="file" accept=".xltm" />
+            </div>
+            <div class="col-md-8">
+                <input type="submit" value="Upload" class="btn btn-gray" />
+            </div>
+        </div>
+        <label class="text-danger">@ViewBag.error</label>
+    </div>
+}

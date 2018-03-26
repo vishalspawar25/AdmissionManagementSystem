@@ -29,5 +29,9 @@ namespace AdmissionManagementSystem.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }      
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<PaymentDetail> PaymentDetails { get; set; }
     }
 }
