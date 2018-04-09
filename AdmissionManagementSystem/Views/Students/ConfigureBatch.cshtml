@@ -5,7 +5,7 @@
 
 <div class="form-horizontal">
     <div class="form-group">
-
+        @Html.HiddenFor(model => model.UserId)
         <label class="control-label col-md-4">Selected Courses</label>
         <div class="col-md-3">
             <ul>
@@ -14,18 +14,24 @@
                 {
                     <li> @item </li>
                 }
-                </ul>
+            </ul>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-md-4">Select Batch</label>
         <div class="col-md-8">
             @Html.ListBoxFor(m => m.Selected, new MultiSelectList(Model.LstBatches, "Value", "Text"), new { @class = "listbox" })
-            @Html.ValidationMessageFor(model => model.Selected, "", new { @class = "text-danger" })
         </div>
+            @Html.ValidationMessageFor(model => model.Selected, "", new { @class = "text-danger",id="lblSelected" })
+        
 
     </div>
+    <div class="modal-footer">
+        <button id="btnSubmit" class="btn btn-gray" onclick="Save();">Save</button>
+    </div>
+    <p id="message" class="text-success"></p>
 </div>
+
 <script type="text/javascript">
     $(function () {
         $('.listbox').multiselect({
@@ -33,6 +39,47 @@
             includeSelectAllOption: false
         });
     });
+
+    var courses = [];
+
+    function Save() {
+
+        $.each($("#Selected option:selected"), function () {
+            courses.push($(this).val());
+        });
+        var userId = $("#UserId").val();
+        console.log(courses);
+
+        if (courses.length == 0) {
+
+            $("#lblSelected").html('The Selected Courses field is required');
+        }
+        else {
+            $("#lblSelected").html('');
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '@Url.Action("ConfigureBatch", "Students")',
+                data: { id: userId, courses: courses },
+                success: function (Data) {
+
+
+                    $("#message").html(Data);
+                    $("#message").css('color', '#468847');
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $("#message").html('Error');
+                    $("#message").css('color', '#e7033d');
+                }
+            });
+        }
+
+
+        courses = [];
+
+    }
+
 </script>
 <link href="@Url.Content("~/Content/bootstrap-multiselect.css")" rel="stylesheet" type="text/css" />
 <script src="@Url.Content("~/Scripts/bootstrap-multiselect.min.js")" type="text/javascript"></script>

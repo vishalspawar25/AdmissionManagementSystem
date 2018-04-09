@@ -389,7 +389,32 @@ namespace AdmissionManagementSystem.Controllers
                         where s.StudentId==id
                         select c.Name).ToList();
 
+            vm.UserId = id;
+
             return PartialView(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ConfigureBatch(int id,int[]courses)
+        {
+           
+            var student = db.Students.Find(id);
+            var item = db.Entry<Student>(student);
+            item.State = EntityState.Modified;
+            item.Collection(i => i.LstBatch).Load();
+            student.LstBatch.Clear();
+           
+
+            foreach (var BatchId in courses)
+            {
+                student.LstBatch.Add(db.Batches.Find(BatchId));
+            }
+
+            db.SaveChanges();
+
+            string message = "success";
+
+            return Json(message, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)
         {
