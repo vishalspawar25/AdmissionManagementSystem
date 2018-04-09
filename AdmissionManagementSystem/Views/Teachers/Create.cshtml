@@ -117,6 +117,7 @@
             includeSelectAllOption: true,
             includeSelectAllOption: false
         });
-        $('.input-group.date').datepicker({ format: "mm-dd-yyyy" });
+        $('.input-group.date').datepicker({ format: "mm-dd-yyyy", autoclose: true });
+        $('.input-group.date input[type=datetime]').val('');
     });
 </script>

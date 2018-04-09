@@ -59,14 +59,16 @@ namespace AdmissionManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 var selectedCourse = teacher.SelectedCourses;
-                ICollection<Course> courses = new List<Course>();
-                foreach (var item in selectedCourse)
+                if (selectedCourse != null)
                 {
-                    Course c = db.Courses.Find(item);
-                    courses.Add(c);
+                    ICollection<Course> courses = new List<Course>();
+                    foreach (var item in selectedCourse)
+                    {
+                        Course c = db.Courses.Find(item);
+                        courses.Add(c);
+                    }
+                    teacher.LstCourse = courses;/* many Courses*/
                 }
-                teacher.LstCourse = courses;/* many Courses*/
-
                 if (dpUploader != null && dpUploader.ContentLength > 0)
                 {
                     string _FileName = Path.GetFileName(dpUploader.FileName);

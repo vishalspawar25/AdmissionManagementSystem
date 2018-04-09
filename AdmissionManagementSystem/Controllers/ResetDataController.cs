@@ -31,7 +31,10 @@ namespace AdmissionManagementSystem.Controllers
                 var students = db.Students.ToList();
                 var payments = db.PaymentDetails.ToList();
                 var courses = db.Courses.ToList();
-                ////Clear student courses
+                var teachers = db.Teachers.ToList();
+                var batches = db.Batches.ToList();
+
+               //1.Clear student courses
                 foreach (var student in students)
                 {
 
@@ -39,28 +42,35 @@ namespace AdmissionManagementSystem.Controllers
                     var item = db.Entry<Student>(student);
                     item.State = EntityState.Modified;
                     item.Collection(i => i.LstCourse).Load();
+                    item.Collection(i => i.LstBatch).Load();
                     student.LstCourse.Clear();
+                    student.LstBatch.Clear();
 
                 }
                 db.SaveChanges();
-                //clear payment details
+
+                foreach (var batch in batches)
+                {
+                    db.Batches.Remove(batch);
+                }
+                db.SaveChanges();
+                //2.Clear payment details
                 foreach (var payment in payments)
                 {
                     db.PaymentDetails.Remove(payment);
 
-
                 }
                 db.SaveChanges();
-                //Clear students
 
+                //3.Clear students
                 foreach (var student in students)
                 {
-
                     db.Students.Remove(student);
 
                 }
                 db.SaveChanges();
 
+                //clear profile pic of all students
                 foreach (var student in students)
                 {
 
@@ -71,21 +81,30 @@ namespace AdmissionManagementSystem.Controllers
                         file.Delete();
                     }
                 }
-                //Clear Courses
+
+                //4.Clear Courses
                 foreach (var course in courses)
                 {
-
                     db.Courses.Remove(course);
-
                 }
                 db.SaveChanges();
+
+                //4.Clear Teachers
+                foreach (var teacher in teachers)
+                {
+                    db.Teachers.Remove(teacher);
+                }
+                db.SaveChanges();
+
+
                 db.Database.ExecuteSqlCommand("DBCC CHECKIDENT('Students', RESEED, 0)");
                 db.Database.ExecuteSqlCommand("DBCC CHECKIDENT('PaymentDetails', RESEED, 0)");
                 db.Database.ExecuteSqlCommand("DBCC CHECKIDENT('Courses', RESEED, 0)");
+                db.Database.ExecuteSqlCommand("DBCC CHECKIDENT('Teachers', RESEED, 0)");
                 db.SaveChanges();
                 ViewBag.message = "Data reset successfully.";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 ViewBag.message = "Error occurred in Data Reset.";

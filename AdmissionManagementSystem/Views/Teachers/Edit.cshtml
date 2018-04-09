@@ -18,7 +18,10 @@
         <div class="form-group">
             <div class="col-md-2">
 
-                <img src="~/UploadedFiles/ProfilePics/@Model.ProfilePic" alt="@Model.FirstName" style="height:100px;width:100px" class="img img-circle img-responsive" />
+                @if (!string.IsNullOrEmpty(Model.ProfilePic))
+                { <img src="~/UploadedFiles/ProfilePics/@Model.ProfilePic" alt="@Model.FirstName" style="height:100px;width:100px" class="img img-circle img-responsive" />}
+                else
+                {  <img src="~/Content/user.jpg" alt="User" style="height:100px;width:100px" class="img img-circle img-responsive" />}
 
             </div>
             <h1 class="col-md-10 page-header">@Model.FirstName @Model.LastName</h1>
@@ -128,7 +131,7 @@
             includeSelectAllOption: false
         });
 
-        $('.input-group.date').datepicker({ format: "mm-dd-yyyy", useCurrent: false });
+        $('.input-group.date').datepicker({ format: "mm-dd-yyyy", useCurrent: false,autoclose: true  });
        
     });
 </script>

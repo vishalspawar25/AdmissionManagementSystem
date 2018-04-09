@@ -13,6 +13,7 @@ namespace AdmissionManagementSystem.Models
         {
             this.LstStudent = new HashSet<Student>();
             this.LstTeacher = new HashSet<Teacher>();
+            
         }
 
 
@@ -28,6 +29,6 @@ namespace AdmissionManagementSystem.Models
 
         public ICollection<Student> LstStudent { get; set; }
         public ICollection<Teacher> LstTeacher { get; set; }
-
+       
     }
 }

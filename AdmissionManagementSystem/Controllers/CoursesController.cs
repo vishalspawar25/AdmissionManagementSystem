@@ -17,6 +17,7 @@ namespace AdmissionManagementSystem.Controllers
         // GET: Courses
         public ActionResult Index()
         {
+            var d = db.Courses.ToList();
             return View(db.Courses.ToList());
         }
 

@@ -14,6 +14,7 @@ using iTextSharp.tool.xml;
 using System.Web;
 using System;
 using Microsoft.Security.Application;
+using AdmissionManagementSystem.Models.ViewModels;
 
 namespace AdmissionManagementSystem.Controllers
 {
@@ -24,7 +25,52 @@ namespace AdmissionManagementSystem.Controllers
         // GET: Students
         public ActionResult Index()
         {
+            //Batch b = new Batch();
+            //b.Name = "CCNA"; b.StartDate = DateTime.Now;
+            //b.EndDate = DateTime.Now.AddDays(60);
+            //b.LstStudent = db.Students.ToList();
+            //b.LstTeacher = db.Teachers.ToList();
+            //db.Batches.Add(b);
+            //db.SaveChanges();
 
+            //Course c = db.Courses.Find(1);
+            //c.Batches = new List<Batch> { b };
+            //db.SaveChanges();
+
+
+
+
+
+            //get students of perticular batch
+            //var student =(from b in db.Batches
+            //              from stud in b.LstStudent
+            //              where b.BatchId == 5
+            //              select stud).ToList();
+
+            ////get batch of perticular students
+            //var batches = (from b in db.Batches
+            //               from stud in b.LstStudent
+            //               where stud.StudentId == 1
+            //               select b).ToList();
+
+
+            //remove 1 student from batch
+            //var batch = db.Batches.Find(1);
+            //var item = db.Entry<Batch>(batch);
+            //item.State = EntityState.Modified;
+            //item.Collection(i => i.LstStudent).Load();          
+            //var removed = batch.LstStudent.Remove(db.Students.Find(2));         
+            //db.SaveChanges();
+
+            //clear all students of perticulatr batch
+            //var batch = db.Batches.Find(5);
+            //var item = db.Entry<Batch>(batch);
+            //item.State = EntityState.Modified;
+            //item.Collection(i => i.LstStudent).Load();
+            //batch.LstStudent.Clear();
+            //db.SaveChanges();
+
+            var student = db.Students.Find(1);
             return View(db.Students.ToList());
         }
 
@@ -36,6 +82,15 @@ namespace AdmissionManagementSystem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+            student.LstCourse = (from c in db.Courses
+                                 from s in c.LstStudent
+                                 where s.StudentId == id
+                                 select c).ToList();
+
+            student.LstBatch = (from b in db.Batches
+                                from s in b.LstStudent
+                                where s.StudentId == id
+                                select b).ToList();
             if (student == null)
             {
                 return HttpNotFound();
@@ -68,7 +123,8 @@ namespace AdmissionManagementSystem.Controllers
                 decimal totalCourseFee = 0;
                 var selectedCourse = student.SelectedCourses;
                 if (selectedCourse == null)
-                { ModelState.AddModelError("SelectedCourses", "Please select minimum 1 course.");
+                {
+                    ModelState.AddModelError("SelectedCourses", "The Selected Courses field is required.");
                     student.Courses = common.GetCourses();
                     return View(student);
                 }
@@ -82,8 +138,8 @@ namespace AdmissionManagementSystem.Controllers
                 student.LstCourse = courses;/* many Courses*/
 
                 student.Address = Sanitizer.GetSafeHtmlFragment(student.Address);
-               
-              
+
+
 
                 if (dpUploader != null && dpUploader.ContentLength > 0)
                 {
@@ -140,6 +196,9 @@ namespace AdmissionManagementSystem.Controllers
                 var paymentdetails = db.PaymentDetails.Where(p => p.StudentId == id).OrderByDescending(p => p.PaymentDate).FirstOrDefault();
                 if (paymentdetails != null)
                 { student.PayingAmt = paymentdetails.BalanceAmount; }
+
+
+
             }
             return View(student);
         }
@@ -215,7 +274,7 @@ namespace AdmissionManagementSystem.Controllers
 
                 if (dpUploader != null && dpUploader.ContentLength > 0)
                 {
-                   
+
                     string _FileName = Path.GetExtension(dpUploader.FileName);
                     string _path = Path.Combine(Server.MapPath(@"~/UploadedFiles/ProfilePics/"), _FileName);
                     dpUploader.SaveAs(_path);
@@ -306,6 +365,31 @@ namespace AdmissionManagementSystem.Controllers
                 pdfDoc.Close();
                 return File(stream.ToArray(), "application/pdf", "Grid.pdf");
             }
+        }
+
+      
+        public ActionResult ConfigureBatch(int id)
+        {
+            ConfigureBatchViewModel vm = new ConfigureBatchViewModel();
+            vm.Selected = (from b in db.Batches
+                           from s in b.LstStudent
+                           where s.StudentId == id
+                           select b.BatchId).ToList();
+
+            vm.LstBatches = (from c in db.Courses
+                             from b in db.Batches
+                             from s in c.LstStudent
+                             where s.StudentId == id
+                                               &&
+                              b.Course_Id == c.Id
+                             select new KeyValue { Text = b.Name, Value = b.BatchId }).ToList();
+
+            vm.Courses =(from c in db.Courses
+                        from s in c.LstStudent
+                        where s.StudentId==id
+                        select c.Name).ToList();
+
+            return PartialView(vm);
         }
         protected override void Dispose(bool disposing)
         {

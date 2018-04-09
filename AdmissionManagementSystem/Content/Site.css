@@ -55,7 +55,7 @@ btn-magenta:active {
     color: #fff;
 }
 
-.form-group label::after {
+.form-group .control-label::after {
     content: ":";
 }
 

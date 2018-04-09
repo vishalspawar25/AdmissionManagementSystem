@@ -85,8 +85,7 @@
 
                 @Html.LabelFor(model => model.DoB, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class='col-md-3'>
-                    <div class="input-group date" data-date-format="mm-dd-yyyy
-                             ">
+                    <div class="input-group date" data-date-format="mm-dd-yyyy   ">
                         @Html.EditorFor(model => model.DoB, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.DoB, "", new { @class = "text-danger" })
                         <div class="input-group-addon">
@@ -225,7 +224,8 @@
 
             GetCourseFee(array);
         });
-        $('.input-group.date').datepicker();
+        $('.input-group.date').datepicker({ autoclose: true });
+        $('.input-group.date input[type=datetime]').val('');
     });
 
 

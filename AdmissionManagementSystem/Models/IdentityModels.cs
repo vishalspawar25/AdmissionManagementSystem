@@ -33,5 +33,6 @@ namespace AdmissionManagementSystem.Models
         public DbSet<Course> Courses { get; set; }      
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
+        public DbSet<Batch> Batches { get; set; }
     }
 }

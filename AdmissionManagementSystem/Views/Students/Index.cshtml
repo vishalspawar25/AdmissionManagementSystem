@@ -53,9 +53,40 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.StudentId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.StudentId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.StudentId })
+               <a href="#" onclick="Call(@item.StudentId)" data-toggle="modal" data-target="#myModal">Batch</a>
             </td>
         </tr>
     }
 
 </table>
 }
+ <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Batch Assignment</h4>
+            </div>
+            <div class="modal-body">
+                <div id="searchResults" style="border:1px">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    function Call(id) {
+        var url = '@Url.Action("ConfigureBatch", "Students")';
+        $('#searchResults').load(url, { id: id });
+
+    }
+</script>

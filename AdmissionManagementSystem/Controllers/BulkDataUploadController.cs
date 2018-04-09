@@ -3,6 +3,7 @@ using ExcelDataReader;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -49,6 +50,10 @@ namespace AdmissionManagementSystem.Controllers
                                 UploadStudentPayment(file);
                                 break;
 
+                            case "AddStudentToBatch":
+                                UploadStudentToBatch(file);
+                                break;
+
                         }
                     }
                     ViewBag.error = "Data saved successfully";
@@ -60,6 +65,49 @@ namespace AdmissionManagementSystem.Controllers
                 }
             }
             return View();
+        }
+
+        private int UploadStudentToBatch(HttpPostedFileBase file)
+        {
+            int success = 0;
+            try
+            {
+                var result = ReadExelFile(file);
+                if (result != null)
+                {
+
+                    var rows = result.Tables["AddStudentToBatch"].Rows;
+
+                    if (rows.Count > 0)
+                    {
+                      
+                        int BatchId = Convert.ToInt32(rows[0]["BatchId"]);
+
+                        Batch b = db.Batches.Find(BatchId);
+                        var item = db.Entry<Batch>(b);
+                        item.State = EntityState.Modified;
+
+                        List<Student> LstStudent = new List<Student>();
+                        foreach (DataRow row in rows)
+                        {
+                            Student student = db.Students.Find(Convert.ToInt32(row["StudentId"]));
+
+                            b.LstStudent.Add(student);
+                        }
+                       
+                       
+                        success = db.SaveChanges();
+                      
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return success;
         }
 
         private int UploadStudents(HttpPostedFileBase file)
@@ -185,8 +233,67 @@ namespace AdmissionManagementSystem.Controllers
             }
             return success;
         }
-        private void UploadTeachers(HttpPostedFileBase file)
-        { }
+        private int UploadTeachers(HttpPostedFileBase file)
+        {
+            int success = 0;
+            try
+            {
+
+
+
+                var result = ReadExelFile(file);
+                if (result != null)
+                {
+                    if (result.Tables.Count > 1)
+                    {
+                        var rows = result.Tables["Teachers"].Rows;
+
+                        if (rows.Count > 0)
+                        {
+                            db.Configuration.AutoDetectChangesEnabled = false;
+                            foreach (DataRow item in rows)
+                            {
+                                Teacher teacher = new Teacher();
+                                teacher.FirstName = Convert.ToString(item["FirstName"]);
+                                teacher.LastName = Convert.ToString(item["LastName"]);
+                                teacher.Email = Convert.ToString(item["Email"]);
+                                teacher.Phone = Convert.ToString(item["Phone"]);
+                                teacher.DoB = Convert.ToDateTime(item["DoB"]);
+                                teacher.RollNo = Convert.ToString(item["RollNo"]);
+                                teacher.Address = Convert.ToString(item["Address"]);
+                                teacher.City = Convert.ToString(item["City"]);
+
+
+                                var _courses = Convert.ToString(item["LstCourse"]).Split('/');
+
+                                ICollection<Course> courses = new List<Course>();
+
+
+                                foreach (var course in _courses)
+                                {
+                                    var id = Convert.ToInt32(course.Split(':')[0]);
+                                    Course c = db.Courses.Find(id);
+                                    courses.Add(c);
+                                    c = null;
+                                }
+
+                                teacher.LstCourse = courses;
+                                db.Teachers.Add(teacher);
+                            }
+                            success = db.SaveChanges();
+                            db.Configuration.AutoDetectChangesEnabled = true;
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return success;
+        }
         private DataSet ReadExelFile(HttpPostedFileBase file)
         {
             try

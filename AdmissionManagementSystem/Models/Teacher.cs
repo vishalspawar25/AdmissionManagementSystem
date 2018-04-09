@@ -14,10 +14,12 @@ namespace AdmissionManagementSystem.Models
         public Teacher()
         {
             this.LstCourse = new HashSet<Course>();
+            this.LstBatch = new HashSet<Batch>();
         }
         [Key]
         public int Id { get; set; }
         public ICollection<Course> LstCourse { get; set; }
+        public ICollection<Batch> LstBatch { get; set; }
 
         [NotMapped]
         [DisplayName("Select Course")]

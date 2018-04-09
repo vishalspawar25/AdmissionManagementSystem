@@ -1,0 +1,38 @@
+﻿@model AdmissionManagementSystem.Models.ViewModels.ConfigureBatchViewModel
+@{
+    ViewBag.Title = "ConfigureBatch";
+}
+
+<div class="form-horizontal">
+    <div class="form-group">
+
+        <label class="control-label col-md-4">Selected Courses</label>
+        <div class="col-md-3">
+            <ul>
+
+                @foreach (var item in Model.Courses)
+                {
+                    <li> @item </li>
+                }
+                </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">Select Batch</label>
+        <div class="col-md-8">
+            @Html.ListBoxFor(m => m.Selected, new MultiSelectList(Model.LstBatches, "Value", "Text"), new { @class = "listbox" })
+            @Html.ValidationMessageFor(model => model.Selected, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('.listbox').multiselect({
+            includeSelectAllOption: true,
+            includeSelectAllOption: false
+        });
+    });
+</script>
+<link href="@Url.Content("~/Content/bootstrap-multiselect.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/bootstrap-multiselect.min.js")" type="text/javascript"></script>

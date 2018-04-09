@@ -114,6 +114,27 @@
             @Html.DisplayFor(model => model.ProfilePic)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.LstCourse)
+        </dt>
+        @foreach (var item in Model.LstCourse)
+        {
+            <dd>
+                @Html.DisplayFor(i=>item.Name)
+            </dd>
+        }
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LstBatch)
+        </dt>
+        @foreach (var item in Model.LstBatch)
+        {
+            <dd>
+                @Html.DisplayFor(i=>item.Name)
+            </dd>
+        }
+
     </dl>
 </div>
 <p>

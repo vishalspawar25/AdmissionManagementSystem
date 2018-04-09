@@ -14,6 +14,7 @@ namespace AdmissionManagementSystem.Models
         public Student()
         {
             this.LstCourse = new HashSet<Course>();
+            this.LstBatch = new HashSet<Batch>();
         }
         [Key]
         public int StudentId { get; set; }
@@ -25,13 +26,16 @@ namespace AdmissionManagementSystem.Models
         public string College { get; set; }
 
         public ICollection<Course> LstCourse { get; set; }
-
+        public ICollection<Batch> LstBatch { get; set; }
         [NotMapped]
         [DisplayName("Select Course")]
         public List<SelectListItem>  Courses { get; set; }
         [NotMapped]
      
         public List<int> SelectedCourses { get; set; }
+
+        [NotMapped]
+        public List<int> SelectedBatches { get; set; }
 
         [NotMapped]
         [DisplayName("Paying Amount")]
