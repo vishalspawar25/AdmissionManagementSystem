@@ -11,26 +11,7 @@
         border: 1px solid #dddddd;
     }
 
-    .step {
-        height: 15px;
-        width: 15px;
-        margin: 0 2px;
-        background-color: #695f5f;
-        border: none;
-        border-radius: 50%;
-        display: inline-block;
-        opacity: 0.5;
-    }
-
-     .step.active {
-       opacity: 1;
-       background-color: #d10a4d;
-    }
-
-        /* Mark the steps that are finished and valid: */
-        .step.finish {
-            background-color: #4CAF50;
-        }
+  
 </style>
 
 @using (Html.BeginForm("Create","Students" ,FormMethod.Post,new { enctype = "multipart/form-data" }))

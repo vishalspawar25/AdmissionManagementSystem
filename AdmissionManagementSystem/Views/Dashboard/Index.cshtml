@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .navbar {
+        margin-bottom: 0;
+    }
+
+    .container {
+        min-width: 100% !important;
+    }
+
+    body {
+        background-color: #eae8e8;
+    }
+
+
+    @@media (min-width: 992px) {
+        /* Desktop*/
+        .box {
+            width: 24.5%;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        /* Tab */
+        .box {
+            width: 100%;
+        }
+    }
+
+    @@media (min-width: 768px) and (max-width: 991px) {
+        /* Mobile*/
+        .box {
+            width: 48%;
+        }
+    }
+
+    .box {
+        clear: right;
+        float: left;
+        margin: 3px;
+        color: #fff;
+    }
+
+        .box h4 {
+            padding-left: 5px;
+        }
+
+        .box button {
+            border-radius: unset;
+            background-color: #000;
+            border: none;
+        }
+
+    .top-bg {
+        background-color: #6e0672;
+        height: 50px;
+        padding-top: 5px;
+    }
+    .vtab {clear:both;margin-bottom:20px
+    }
+</style>
+<link rel="stylesheet" href="@Url.Content("~/Content/datepicker.min.css")" />
+<script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
+<div class="dashboard">
+    <div class="top">
+        <div class="box top-bg">
+            <h4>New admissions-20</h4>
+        </div>
+        <div class="box top-bg">
+            <h4>Courses-5</h4>
+        </div>
+        <div class="box top-bg">
+            <h4>Batches-8</h4>
+        </div>
+        <div class="box top-bg">
+            <h4>Defaulters-5</h4>
+        </div>
+    </div>
+
+
+    <div class="vtab"></div>
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-md-1 control-label" style="text-align:left;padding-right:0" for="Course_Id">Subject</label>
+            <div class="col-md-3">
+                <select class="form-control" data-val="true" data-val-number="The field Subject must be a number." data-val-required="The Subject field is required." id="Course_Id" name="Course_Id">
+                    <option value="1">C#,ASP.NET</option>
+                    <option value="2">Java</option>
+                    <option value="3">CCNA</option>
+                    <option value="4">PHP</option>
+                    <option value="5">C,C++</option>
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="box" style="background-color:#0094ff">
+            <h1 class="text-center">5</h1>
+            <p class="text-center">Students</p>
+            <h4>C#,MVC.NET</h4>
+            <button class="btn btn-gray" style="width:100%">View Details</button>
+        </div>
+        <div class="box" style="background-color:#f37407">
+            <h1 class="text-center">15</h1>
+            <p class="text-center">Students</p>
+            <h4>Dot Net Regular</h4>
+            <button class="btn btn-gray" style="width:100%">View Details</button>
+        </div>
+        <div class="box" style="background-color:#ee6dd4">
+            <h1 class="text-center">36</h1>
+            <p class="text-center">Students</p>
+            <h4>C#,MVC,SQL</h4>
+            <button class="btn btn-gray" style="width:100%">View Details</button>
+        </div>
+        <div class="box" style="background-color:#f37407">
+            <h1 class="text-center">15</h1>
+            <p class="text-center">Students</p>
+            <h4>Dot Net Regular</h4>
+            <button class="btn btn-gray" style="width:100%">View Details</button>
+        </div>
+        <div class="box" style="background-color:#ee6dd4">
+            <h1 class="text-center">36</h1>
+            <p class="text-center">Students</p>
+            <h4>C#,MVC,SQL</h4>
+            <button class="btn btn-gray" style="width:100%">View Details</button>
+        </div>
+
+    </div>
+    <div class="vtab"></div>
+    <div>Graph</div>
+</div>
+
+

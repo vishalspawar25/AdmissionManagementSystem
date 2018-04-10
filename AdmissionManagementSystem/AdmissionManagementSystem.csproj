@@ -210,6 +210,7 @@
     <Compile Include="Controllers\BatchesController.cs" />
     <Compile Include="Controllers\BulkDataUploadController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ResetDataController.cs" />
@@ -358,11 +359,11 @@
     <Content Include="Views\Batches\Edit.cshtml" />
     <Content Include="Views\Batches\Index.cshtml" />
     <Content Include="Views\Students\ConfigureBatch.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UploadedFiles\ProfilePics\" />
-    <Folder Include="Views\Batch\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
