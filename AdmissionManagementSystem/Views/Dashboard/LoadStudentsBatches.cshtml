@@ -1,0 +1,61 @@
+﻿@model AdmissionManagementSystem.Models.Batch
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Batch Details</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <table class="table table-responsive table-bordered">
+            <tr>
+                <td colspan="2">
+                    <h2 class="text-center lbl">@Model.Name</h2>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Durtion:@Model.StartDate.ToString("dd/MM/yyyy") To @Model.EndDate.ToString("dd/MM/yyyy")</td>
+                <td>WeekDaysList:@Model.csvDays</td>
+
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <table class="table table-responsive table-bordered">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                        </tr>
+                        @foreach (var student in Model.LstStudent)
+                        {
+                            <tr>
+                        <td>
+                            @student.FirstName @student.LastName
+                        </td>
+                        <td>
+                            @student.Email
+                        </td>
+                        </tr> }
+                    </table>
+                </td>
+            </tr>
+
+
+            <tr></tr>
+        </table>
+    </div>
+</body>
+</html>

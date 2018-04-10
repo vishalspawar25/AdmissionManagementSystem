@@ -211,6 +211,7 @@
     <Compile Include="Controllers\BulkDataUploadController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ResetDataController.cs" />
@@ -251,6 +252,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\Dashboard.js" />
     <Content Include="Scripts\datepair.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -360,6 +362,7 @@
     <Content Include="Views\Batches\Index.cshtml" />
     <Content Include="Views\Students\ConfigureBatch.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\LoadStudentsBatches.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,7 +22,7 @@ namespace AdmissionManagementSystem.Models
         
         public string Time { get; set; }
 
-        [Required]
+       
         [Display (Name ="Days")]
         public string csvDays { get; set; }
 

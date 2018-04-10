@@ -53,7 +53,7 @@ namespace AdmissionManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BatchId,Name,StartDate,EndDate,Course_Id,Time")] Batch batch, string[] Selected)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Selected != null)
             {
 
                 batch.csvDays = string.Join(",", Selected);

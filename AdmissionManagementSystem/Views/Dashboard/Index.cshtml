@@ -1,4 +1,4 @@
-﻿
+﻿@model AdmissionManagementSystem.Models.ViewModels.DashboardViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -66,73 +66,42 @@
 <script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
 <div class="dashboard">
     <div class="top">
-        <div class="box top-bg">
-            <h4>New admissions-20</h4>
-        </div>
-        <div class="box top-bg">
-            <h4>Courses-5</h4>
-        </div>
-        <div class="box top-bg">
-            <h4>Batches-8</h4>
-        </div>
-        <div class="box top-bg">
-            <h4>Defaulters-5</h4>
-        </div>
+        @foreach (var box in Model.NameCountList)
+        {
+            <div class="box top-bg">
+                <h4>@box.Name-@box.Count</h4>
+            </div>
+        }
+
     </div>
-
-
     <div class="vtab"></div>
-
     <div class="form-horizontal">
         <div class="form-group">
             <label class="col-md-1 control-label" style="text-align:left;padding-right:0" for="Course_Id">Subject</label>
             <div class="col-md-3">
-                <select class="form-control" data-val="true" data-val-number="The field Subject must be a number." data-val-required="The Subject field is required." id="Course_Id" name="Course_Id">
-                    <option value="1">C#,ASP.NET</option>
-                    <option value="2">Java</option>
-                    <option value="3">CCNA</option>
-                    <option value="4">PHP</option>
-                    <option value="5">C,C++</option>
-                </select>
-
+                @Html.DropDownList("Courses", new MultiSelectList(Model.Courses, "Value", "Text"), new { @class = "form-control" })
             </div>
         </div>
 
+        <div id="BatchBox">
+            <script type="text/x-handlebars-template" id="Batchtemplate">
+                {{#each Batches}}
+                <div class="box" style="background-color:#0094ff" id="Batch{{@@key}}">
+                    <h1 class="text-center">{{Count}}</h1>
+                    <p class="text-center">Students</p>
+                    <h4>{{Name}}</h4>
+                    <button class="btn btn-gray" style="width:100%" onclick="ShowStudents({{BatchId}},'{{NavigationUrl}}');">View Details</button>
+                </div>
+                {{/each}}
+            </script>
 
-        <div class="box" style="background-color:#0094ff">
-            <h1 class="text-center">5</h1>
-            <p class="text-center">Students</p>
-            <h4>C#,MVC.NET</h4>
-            <button class="btn btn-gray" style="width:100%">View Details</button>
-        </div>
-        <div class="box" style="background-color:#f37407">
-            <h1 class="text-center">15</h1>
-            <p class="text-center">Students</p>
-            <h4>Dot Net Regular</h4>
-            <button class="btn btn-gray" style="width:100%">View Details</button>
-        </div>
-        <div class="box" style="background-color:#ee6dd4">
-            <h1 class="text-center">36</h1>
-            <p class="text-center">Students</p>
-            <h4>C#,MVC,SQL</h4>
-            <button class="btn btn-gray" style="width:100%">View Details</button>
-        </div>
-        <div class="box" style="background-color:#f37407">
-            <h1 class="text-center">15</h1>
-            <p class="text-center">Students</p>
-            <h4>Dot Net Regular</h4>
-            <button class="btn btn-gray" style="width:100%">View Details</button>
-        </div>
-        <div class="box" style="background-color:#ee6dd4">
-            <h1 class="text-center">36</h1>
-            <p class="text-center">Students</p>
-            <h4>C#,MVC,SQL</h4>
-            <button class="btn btn-gray" style="width:100%">View Details</button>
+
         </div>
 
     </div>
     <div class="vtab"></div>
     <div>Graph</div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" type="text/javascript"></script>
 
-
+<script src="~/Scripts/Dashboard.js"></script>
