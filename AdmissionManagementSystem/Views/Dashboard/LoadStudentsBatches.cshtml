@@ -16,7 +16,7 @@
 <body  style="background-color:#dcdada">
     <form method="post">
         <input type="hidden" name="GridHtml" />
-        <input type="submit" value="Print" id="btnPrint" class="btn btn btn-primary" />
+        <input type="submit" value="Print" id="btnPrint" class="btn btn btn-primary" style="margin:5px;border-radius:0" />
         <div id="Table">
             <div class="container">
                 <table class="table table-responsive table-bordered"  style="background-color:#fff">
@@ -32,7 +32,7 @@
                             <p><b>Time</b>@Model.Time</p>
                         </td>
 
-                        <td><b>Days:</b>@Model.csvDays</td>
+                        <td><p><b>Days:</b>@Model.csvDays</p></td>
 
                     </tr>
 
