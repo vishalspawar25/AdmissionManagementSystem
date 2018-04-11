@@ -38,7 +38,7 @@
             <div class="col-md-3">
 
                 <div class="input-group date" data-date-format="mm-dd-yyyy">
-                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control start" } })
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control startDate" } })
                     @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
@@ -50,7 +50,7 @@
             <div class="col-md-3">
                 <div class="input-group date" data-date-format="mm-dd-yyyy">
 
-                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control end" } })
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control endDate" } })
                     @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
@@ -121,22 +121,25 @@
     $('.input-group.date').datepicker({ autoclose: true });
     function check() {
 
+        var from = $(".start").val();
+        var to = $(".end").val();
+        if (from != "" && to != "") {
+            var vals = from + "-" + to;
+            $("#Time").val(vals);
 
-
-
-        var start = $(".start").val();
-        var end = $(".end").val();
+        }
+        var start = $(".startDate").val();
+        var end = $(".endDate").val();
       
         if (new Date(Date.parse(start)) >= new Date(Date.parse(end))) {
             alert('Start date cannot be greater that end date.');
             return false;
         }
-        else {
-            var vals = start + " To " + end;
-            $("#Time").val(vals);
-           
+
+        else
             return true;
-        }
+           
+        
     }
 
     $('.input-group.date input[type=datetime]').val('');

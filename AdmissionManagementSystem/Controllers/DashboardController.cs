@@ -1,7 +1,11 @@
 ﻿using AdmissionManagementSystem.Models;
 using AdmissionManagementSystem.Models.ViewModels;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -58,15 +62,45 @@ namespace AdmissionManagementSystem.Controllers
                 batch.csvDays = Batches[0].b.csvDays;
                 batch.StartDate = Batches[0].b.StartDate;
                 batch.EndDate = Batches[0].b.EndDate;
-
+                batch.Time = Batches[0].b.Time;
                 foreach (var bt in Batches)
                 {
                     batch.LstStudent.Add(bt.stud);
 
                 }
             }
+            else
+            {
+                batch = db.Batches.Find(id);
+
+            }
 
             return View(batch);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult LoadStudentsBatches(string GridHtml)
+        {
+            string csspath = Server.MapPath("~/Content/Site.css");
+            string csspath1 = Server.MapPath("~/Content/bootstrap.min.css");
+
+            string cssText = System.IO.File.ReadAllText(csspath);
+
+            cssText += System.IO.File.ReadAllText(csspath1);
+            var cssMemoryStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(cssText));
+            var htmlMemoryStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(GridHtml));
+
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(GridHtml);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, htmlMemoryStream, cssMemoryStream);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "BatchDetails"+DateTime.Now+".pdf");
+            }
         }
     }
 }

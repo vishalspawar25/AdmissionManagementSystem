@@ -13,49 +13,78 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
-<body>
-    <div class="container">
-        <table class="table table-responsive table-bordered">
-            <tr>
-                <td colspan="2">
-                    <h2 class="text-center lbl">@Model.Name</h2>
-                </td>
+<body  style="background-color:#dcdada">
+    <form method="post">
+        <input type="hidden" name="GridHtml" />
+        <input type="submit" value="Print" id="btnPrint" class="btn btn btn-primary" />
+        <div id="Table">
+            <div class="container">
+                <table class="table table-responsive table-bordered"  style="background-color:#fff">
+                    <tr>
+                        <td colspan="2">
+                            <h2 class="text-center lbl">@Model.Name</h2>
+                        </td>
 
-            </tr>
-            <tr>
-                <td>Durtion:@Model.StartDate.ToString("dd/MM/yyyy") To @Model.EndDate.ToString("dd/MM/yyyy")</td>
-                <td>WeekDaysList:@Model.csvDays</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p><b>Durtion:</b> @Model.StartDate.ToString("dd/MM/yyyy") To @Model.EndDate.ToString("dd/MM/yyyy")</p>
+                            <p><b>Time</b>@Model.Time</p>
+                        </td>
 
-            </tr>
+                        <td><b>Days:</b>@Model.csvDays</td>
 
-            <tr>
-                <td colspan="2">
-                    <table class="table table-responsive table-bordered">
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Email
-                            </th>
-                        </tr>
-                        @foreach (var student in Model.LstStudent)
-                        {
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            @if (Model.LstStudent.Count > 0)
+                            {  <table class="table table-responsive table-bordered">
                             <tr>
-                        <td>
-                            @student.FirstName @student.LastName
+                                <th>
+                                    Name
+                                </th>
+                                <th class="hidden-xs">
+                                    Email
+                                </th>
+                                <th>
+                                    Phone
+                                </th>
+                            </tr>
+                            @foreach (var student in Model.LstStudent)
+                            {
+                                <tr>
+                                    <td>
+                                        @student.FirstName @student.LastName
+                                    </td>
+                                    <td class="hidden-xs">
+                                        <a href="mailto:@student.Email?Subject=Greetings%20from%20Institute%20Name" target="_top">@student.Email</a>
+                                    </td>
+                                    <td><a href="tel:@student.Phone">@student.Phone</a></td>
+                                </tr> }
+                        </table>
+                            }
+                            else
+                            {
+                                <h2>No student is tagged under this batch.</h2>
+                            }
                         </td>
-                        <td>
-                            @student.Email
-                        </td>
-                        </tr> }
-                    </table>
-                </td>
-            </tr>
+                    </tr>
 
 
-            <tr></tr>
-        </table>
-    </div>
+                    <tr></tr>
+                </table>
+            </div>
+            </div>
+
+</form>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+                    $(function () {
+                        $("#btnPrint").click(function () {
+                            $("input[name='GridHtml']").val($("#Table").html());
+                        });
+                    });
+    </script>
 </body>
 </html>

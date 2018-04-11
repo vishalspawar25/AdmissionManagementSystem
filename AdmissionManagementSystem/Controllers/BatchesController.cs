@@ -17,8 +17,9 @@ namespace AdmissionManagementSystem.Controllers
         private Common common = new Common();
         // GET: Batches
         public ActionResult Index()
-        {
-            return View(db.Batches.ToList());
+        { var list = db.Batches.ToList();
+           
+            return View(list);
         }
 
         // GET: Batches/Details/5

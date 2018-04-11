@@ -28,7 +28,7 @@ function Batches() {
 
             $.each(data.Batches, function (key, val)
             {
-                console.log("'" + ColorArray[key] + "'");
+              
                 
                 $("#Batch" + key).css('background-color', ColorArray[key]);
             });
@@ -47,6 +47,6 @@ function Batches() {
 function ShowStudents(BatchId,page)
 {
     url = SiteUrl + "/" + page + "?id=" + BatchId;
-    window.open(url,'_Blank','location=No');
+    window.open(url, '_Blank', 'location=no,resizable=no,width=500');
 
 }
